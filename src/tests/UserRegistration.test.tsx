@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { UserRegistration } from '../pages/UserRegistration';
 import { AuthProvider } from '../contexts/AuthContext';
 
-// Mock localStorage
+
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
   return {
