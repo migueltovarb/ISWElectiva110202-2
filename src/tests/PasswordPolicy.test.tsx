@@ -20,20 +20,19 @@ describe('PasswordPolicy component', () => {
 
     const testInput = screen.getByTestId('password-input'); 
 
-    // Contraseña que cumple algunos requisitos
     fireEvent.change(testInput, { target: { value: 'Test123' } });
 
-    // Verificamos los estados (usando las clases de Tailwind)
+
     expect(screen.getByTestId('requirement-length')).toHaveClass('text-red-600');
     expect(screen.getByTestId('requirement-uppercase')).toHaveClass('text-green-600');
     expect(screen.getByTestId('requirement-lowercase')).toHaveClass('text-green-600');
     expect(screen.getByTestId('requirement-number')).toHaveClass('text-green-600');
     expect(screen.getByTestId('requirement-special')).toHaveClass('text-red-600');
 
-    // Contraseña que cumple todos los requisitos
+  
     fireEvent.change(testInput, { target: { value: 'Test123!' } });
 
-    // Todos deben estar en verde ahora
+
     const requirements = [
       'length',
       'uppercase',
@@ -55,8 +54,7 @@ describe('PasswordPolicy component', () => {
     
     const input = screen.getByTestId('password-input');
     fireEvent.change(input, { target: { value: 'Test123!' } });
-    
-    // La contraseña tiene 8 caracteres pero el mínimo ahora es 10
+
     expect(screen.getByTestId('requirement-length')).toHaveClass('text-red-600');
     expect(screen.getByText('Minimum 10 characters')).toBeInTheDocument();
   });
