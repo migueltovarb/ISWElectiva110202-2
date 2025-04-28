@@ -4,7 +4,7 @@ import { Dashboard } from '../pages/Dashboard';
 import * as AuthContext from '@/contexts/AuthContext';
 import * as ReactI18Next from 'react-i18next';
 
-// Definir tipos para los mocks
+
 interface User {
   id: string;
   name: string;
@@ -24,7 +24,7 @@ interface AuthContextType {
   allUsers: User[];
 }
 
-// Mock de los hooks
+
 vi.mock('@/contexts/AuthContext', () => ({
   useAuth: vi.fn(),
 }));
@@ -60,7 +60,7 @@ describe('Dashboard Component', () => {
   ];
 
   beforeEach(() => {
-    // Configurar los mocks antes de cada test usando la sintaxis de Vitest
+
     vi.spyOn(AuthContext, 'useAuth').mockImplementation(() => ({
       allUsers: mockUsers
     } as AuthContextType));
@@ -82,7 +82,7 @@ describe('Dashboard Component', () => {
       }
     }));
 
-    // Mock de Date.prototype.toLocaleTimeString
+ 
     const originalToLocaleTimeString = Date.prototype.toLocaleTimeString;
     Date.prototype.toLocaleTimeString = vi.fn(() => '10:30:00');
 
@@ -99,13 +99,13 @@ describe('Dashboard Component', () => {
   test('renders dashboard cards correctly', () => {
     render(<Dashboard />);
     
-    // Verificar que se renderizan los títulos de las tarjetas
+   
     expect(screen.getByText('Usuarios Activos')).toBeInTheDocument();
     expect(screen.getByText('Puertas')).toBeInTheDocument();
     expect(screen.getByText('Alertas Hoy')).toBeInTheDocument();
     expect(screen.getByText('Accesos Hoy')).toBeInTheDocument();
     
-    // Verificar los valores de las tarjetas
+
     expect(screen.getByText('145')).toBeInTheDocument();
     expect(screen.getByText('16')).toBeInTheDocument();
     expect(screen.getByText('9')).toBeInTheDocument();
@@ -117,13 +117,12 @@ describe('Dashboard Component', () => {
     
     expect(screen.getByText('Usuarios Registrados')).toBeInTheDocument();
     
-    // Verificar que se muestran los usuarios
+
     expect(screen.getByText('Juan Pérez')).toBeInTheDocument();
     expect(screen.getByText('juan@example.com')).toBeInTheDocument();
     expect(screen.getByText('María González')).toBeInTheDocument();
     expect(screen.getByText('maria@example.com')).toBeInTheDocument();
     
-    // Verificar información de acceso a puertas
     expect(screen.getByText('Entrada Principal')).toBeInTheDocument();
     expect(screen.getByText('Cafetería')).toBeInTheDocument();
   });
@@ -133,14 +132,13 @@ describe('Dashboard Component', () => {
     
     expect(screen.getByText('Actividad Reciente')).toBeInTheDocument();
     
-    // Verificar actividades recientes
+
     expect(screen.getByText('Juan Pérez accedió a Entrada Principal')).toBeInTheDocument();
     expect(screen.getByText('Intento de acceso no autorizado en Sala de Servidores')).toBeInTheDocument();
     expect(screen.getByText('Temperatura elevada en Sala de Servidores')).toBeInTheDocument();
     expect(screen.getByText('María González accedió a Cafetería')).toBeInTheDocument();
     expect(screen.getByText('Actualización de firmware completada')).toBeInTheDocument();
     
-    // Verificar tiempos de actividades
     expect(screen.getByText('Hace 5 minutos')).toBeInTheDocument();
     expect(screen.getByText('Hace 15 minutos')).toBeInTheDocument();
     expect(screen.getByText('Hace 30 minutos')).toBeInTheDocument();
