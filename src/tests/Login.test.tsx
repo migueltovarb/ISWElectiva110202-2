@@ -4,10 +4,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { Login } from '../pages/Login';
 import { AuthProvider } from '../contexts/AuthContext';
 
-// MOCK de useNavigate fuera de los tests
+
 const mockNavigate = vi.fn();
 
-// Tienes que hacer el mock *antes* de cargar Login, MemoryRouter, etc.
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
   return {
