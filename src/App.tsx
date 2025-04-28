@@ -5,7 +5,7 @@ import { RegistrationSuccess } from './pages/RegistrationSuccess';
 import { Dashboard } from './pages/Dashboard';
 import { GuestDashboard } from './components/GuestDashboard';
 import { EnvironmentalMonitoring } from './pages/EnvironmentalMonitoring';
-import { ExportRecords } from './pages/ExportRecords';
+import { ExportarRegistros } from './pages/ExportRecords';
 import { PasswordPolicy } from './pages/PasswordPolicy';
 import { DoorManagement } from './pages/DoorManagement';
 import { UserManagement } from './pages/UserManagement';
@@ -69,7 +69,7 @@ function App() {
                 path="/export-records"
                 element={
                   <ProtectedRoute allowedRoles={['admin', 'security']}>
-                    <ExportRecords />
+                    <ExportarRegistros />
                   </ProtectedRoute>
                 }
               />
