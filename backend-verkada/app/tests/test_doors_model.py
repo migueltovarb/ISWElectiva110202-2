@@ -1,23 +1,24 @@
-import pytest
+from app.models.door import Door
+from app.core.database import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.database import Base
-from app.main import app
-from fastapi.testclient import TestClient
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test_doors.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@pytest.fixture(scope="session")
-def db():
+def test_door_model_columns():
     Base.metadata.create_all(bind=engine)
     db = TestingSessionLocal()
-    yield db
+
+    door = Door(name="Test Door", location="Main Entrance")
+    db.add(door)
+    db.commit()
+    db.refresh(door)
+
+    assert door.id is not None
+    assert door.name == "Test Door"
+    assert door.location == "Main Entrance"
+
     db.close()
     Base.metadata.drop_all(bind=engine)
-
-@pytest.fixture(scope="module")
-def client():
-    return TestClient(app)

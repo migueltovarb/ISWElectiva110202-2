@@ -9,7 +9,7 @@ def test_create_visitor():
         "document_id": "ABC123",
         "visit_reason": "Meeting"
     }
-    response = client.post("/visitors/", json=data)
+    response = client.post("/api/visitors/", json=data)
     assert response.status_code == 200
     assert response.json()["name"] == "John Doe"
     assert response.json()["document_id"] == "ABC123"
