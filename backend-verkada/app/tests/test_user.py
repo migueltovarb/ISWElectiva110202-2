@@ -5,14 +5,14 @@ from app.core.database import Base
 from app.services.user_service import create_user, get_user
 from app.schemas.user import UserCreate
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def db():
     Base.metadata.create_all(bind=engine)
     db = TestingSessionLocal()
@@ -24,9 +24,12 @@ def test_create_user(db):
     user_data = UserCreate(username="testuser", password="testpassword")
     user = create_user(db, user_data)
     assert user.username == "testuser"
-    assert user.password == "testpasswordnotreallyhashed"
+    assert user.password == "testpasswordnotreallyhashed"  
 
 def test_get_user(db):
+    user_data = UserCreate(username="testuser", password="testpassword")
+    create_user(db, user_data)
+
     user = get_user(db, username="testuser")
     assert user is not None
     assert user.username == "testuser"
