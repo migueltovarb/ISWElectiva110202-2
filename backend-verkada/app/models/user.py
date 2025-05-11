@@ -18,3 +18,4 @@ class User(Base):
     is_admin = Column(Boolean, default=False)
 
     doors = relationship("Door", secondary=user_door, backref="users")
+    access_controls = relationship("AccessControl", back_populates="user")

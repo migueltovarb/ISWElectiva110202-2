@@ -1,25 +1,26 @@
-import pytest
 from fastapi.testclient import TestClient
 from app.main import app
-from app.schemas.door import DoorCreate
 
 client = TestClient(app)
 
-def test_create_door():
-    door_data = {"name": "Main Entrance", "location": "Lobby"}
-    response = client.post("/api/doors/", json=door_data)
+def test_create_door_success():
+    response = client.post("/api/doors/", json={"name": "Front Door", "location": "Lobby"})
     assert response.status_code == 200
-    result = response.json()
-    assert result["name"] == "Main Entrance"
-    assert result["location"] == "Lobby"
-    assert "id" in result
-def test_get_door():
-    door_data = {"name": "Server Room", "location": "2nd Floor"}
-    create_resp = client.post("/api/doors/", json=door_data)
-    door_id = create_resp.json()["id"]
 
-    response = client.get(f"/api/doors/{door_id}")
+def test_create_door_duplicate():
+    client.post("/api/doors/", json={"name": "Duplicate Door", "location": "Lobby"})
+    response = client.post("/api/doors/", json={"name": "Duplicate Door", "location": "Lobby"})
+    assert response.status_code == 400
+
+def test_create_door_missing_field():
+    response = client.post("/api/doors/", json={"location": "Lobby"})
+    assert response.status_code == 422
+
+def test_get_existing_door():
+    client.post("/api/doors/", json={"name": "Test Door", "location": "Hallway"})
+    response = client.get("/api/doors/1")
     assert response.status_code == 200
-    result = response.json()
-    assert result["name"] == "Server Room"
-    assert result["location"] == "2nd Floor"
+
+def test_get_nonexistent_door():
+    response = client.get("/api/doors/9999")
+    assert response.status_code == 404

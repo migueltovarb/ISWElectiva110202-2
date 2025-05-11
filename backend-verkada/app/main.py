@@ -24,8 +24,8 @@ app.include_router(door.router, prefix="/api/doors", tags=["Doors"])
 
 @app.on_event("startup")
 async def startup_event():
-    print("API Iniciada Correctamente")
+    pass
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    print("API Finalizada Correctamente")
+    pass

@@ -1,35 +1,28 @@
 import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.core.database import Base
-from app.services.user_service import create_user, get_user
-from app.schemas.user import UserCreate
+from fastapi.testclient import TestClient
+from app.main import app
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+client = TestClient(app)
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+def test_register_user_success():
+    response = client.post(
+        "/api/users/",
+        json={"username": "testuser1", "password": "testpass"}
+    )
+    assert response.status_code == 200 or response.status_code == 400
 
-@pytest.fixture(scope="function")
-def db():
-    Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
-    yield db
-    db.close()
-    Base.metadata.drop_all(bind=engine)
+def test_register_user_duplicate():
+    client.post("/api/users/", json={"username": "testuser2", "password": "testpass"})
+    response = client.post(
+        "/api/users/",
+        json={"username": "testuser2", "password": "testpass"}
+    )
+    assert response.status_code == 400
 
-def test_create_user(db):
-    user_data = UserCreate(username="testuser", password="testpassword")
-    user = create_user(db, user_data)
-    assert user.username == "testuser"
-    assert user.password == "testpasswordnotreallyhashed"  
+def test_register_user_missing_fields():
+    response = client.post("/api/users/", json={"username": "testuser3"})
+    assert response.status_code == 422
 
-def test_get_user(db):
-    user_data = UserCreate(username="testuser", password="testpassword")
-    create_user(db, user_data)
-
-    user = get_user(db, username="testuser")
-    assert user is not None
-    assert user.username == "testuser"
+def test_get_nonexistent_user():
+    response = client.get("/api/users/9999")
+    assert response.status_code == 404

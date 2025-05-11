@@ -8,6 +8,9 @@ router = APIRouter()
 
 @router.post("/", response_model=DoorResponse)
 def create_door(door: DoorCreate, db: Session = Depends(get_db)):
+    existing_door = db.query(Door).filter(Door.name == door.name).first()
+    if existing_door:
+        raise HTTPException(status_code=400, detail="Door already exists")
     new_door = Door(name=door.name, location=door.location)
     db.add(new_door)
     db.commit()
