@@ -1,6 +1,3 @@
-# tests/test_alarm_model.py
-
-import pytest
 from app.models.alarm import Alarm
 
 def test_alarm_activation():

@@ -1,10 +1,8 @@
-from app.core.database import Base, engine
 from fastapi import FastAPI
-from app.routes import user
+from app.routes import user, visitor, access_control
 
 app = FastAPI()
 
-# ¡Crear las tablas automáticamente!
-Base.metadata.create_all(bind=engine)
-
-app.include_router(user.router, prefix="/api")
+app.include_router(user.router)
+app.include_router(visitor.router)
+app.include_router(access_control.router)
