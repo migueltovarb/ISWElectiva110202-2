@@ -19,3 +19,8 @@ def test_create_and_get_door():
     assert result["name"] == "Test Door Coverage"
     assert result["location"] == "Main Hall"
     assert result["id"] == door_id
+
+def test_get_nonexistent_door():
+    response = client.get("/api/doors/9999")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Door not found"}

@@ -1,29 +1,22 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from app.schemas.user import UserCreate, UserOut, UserLogin
-from app.services.user_service import create_user, get_user, authenticate_user
-from app.core.database import SessionLocal
+from app.core.database import get_db
+from app.models.user import User
+from app.schemas.user_schema import UserCreate
+from app.services import user_service
 
 router = APIRouter()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@router.post("/users/", response_model=UserOut)
-def create_user_route(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = get_user(db, username=user.username)
+@router.post("/", response_model=UserCreate)
+def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
+    db_user = user_service.get_user_by_username(db, user_data.username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
-    return create_user(db=db, user=user)
+    return user_service.create_user(db, user_data)
 
-@router.post("/login/")
-def login(user: UserLogin, db: Session = Depends(get_db)):
-    authenticated_user = authenticate_user(db, user.username, user.password)
-    if not authenticated_user:
-        raise HTTPException(status_code=401, detail="Invalid username or password")
-    
-    return {"access_token": f"fake-token-for-{authenticated_user.username}", "token_type": "bearer"}
+@router.get("/{user_id}", response_model=UserCreate)
+def get_user(user_id: int, db: Session = Depends(get_db)):
+    user = user_service.get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user

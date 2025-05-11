@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, ForeignKey, DateTime, String
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 from datetime import datetime
+from app.models.door import Door  # Corregido
 
 class Visit(Base):
     __tablename__ = "visits"
@@ -13,4 +14,4 @@ class Visit(Base):
     purpose = Column(String, nullable=True)
 
     visitor = relationship("Visitor")
-    door = relationship("Door")
+    door = relationship(Door)

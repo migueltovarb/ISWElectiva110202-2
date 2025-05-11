@@ -5,19 +5,20 @@ from app.core.database import Base
 from app.main import app
 from fastapi.testclient import TestClient
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+DATABASE_URL = "sqlite:///:memory:"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@pytest.fixture(scope="session")
-def db():
+@pytest.fixture(scope="function")
+def db_session():
     Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
-    yield db
-    db.close()
+    session = TestingSessionLocal()
+    yield session
+    session.close()
     Base.metadata.drop_all(bind=engine)
 
 @pytest.fixture(scope="module")
 def client():
-    return TestClient(app)
+    with TestClient(app) as c:
+        yield c

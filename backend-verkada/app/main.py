@@ -1,6 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import user, visitor, acces_control, visit, door
+from app.core.database import Base, engine
+from app.models.door import Door
+from app.models.user import User
+from app.models.visitor import Visitor
+from app.models.visit import Visit
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Sistema de Control de Acceso",
