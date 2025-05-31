@@ -1,0 +1,213 @@
+/* src/components/Nav.css */
+.nav-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  border-bottom: 2px solid #bae6fd;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  gap: 24px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+}
+
+.nav-brand-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #0284c7;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 14px;
+}
+
+.nav-link:hover {
+  background-color: rgba(186, 230, 253, 0.3);
+  color: #0369a1;
+  transform: translateY(-1px);
+}
+
+.nav-link-active {
+  background: linear-gradient(135deg, #dbeafe 0%, #bae6fd 100%);
+  color: #0369a1;
+  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.15);
+  border: 1px solid #7dd3fc;
+}
+
+.nav-link-active::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  border-radius: 2px;
+}
+
+.nav-link-icon {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link-text {
+  font-size: 0.9rem;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  color: #0369a1;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.nav-user-avatar {
+  background-color: #7dd3fc;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.nav-user-name {
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 4px;
+  }
+  
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .nav-link-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-content {
+    padding: 8px 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .nav-brand {
+    order: 1;
+  }
+  
+  .nav-user {
+    order: 2;
+  }
+  
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: space-around;
+    gap: 2px;
+  }
+  
+  .nav-link {
+    flex-direction: column;
+    padding: 8px 6px;
+    font-size: 11px;
+    min-width: 60px;
+  }
+  
+  .nav-link-icon {
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+  }
+  
+  .nav-link-text {
+    font-size: 0.75rem;
+  }
+  
+  .nav-brand-text {
+    font-size: 1.25rem;
+  }
+  
+  .nav-logo {
+    font-size: 1.25rem;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-user-name {
+    display: none;
+  }
+  
+  .nav-link {
+    min-width: 50px;
+    padding: 6px 4px;
+  }
+  
+  .nav-link-text {
+    font-size: 0.7rem;
+  }
+}

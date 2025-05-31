@@ -1,0 +1,323 @@
+/* src/pages/Users.css */
+.users-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.users-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  margin-bottom: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.users-header {
+  border-top: 4px solid #7dd3fc;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.users-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 8px;
+}
+
+.users-divider {
+  width: 80px;
+  height: 4px;
+  background-color: #7dd3fc;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.users-form {
+  display: grid;
+  gap: 20px;
+}
+
+.users-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .users-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.users-input-full {
+  grid-column: 1 / -1;
+}
+
+.users-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #bae6fd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: rgba(240, 249, 255, 0.3);
+  color: #0369a1;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.users-input:focus {
+  outline: none;
+  border-color: #0ea5e9;
+}
+
+.users-input::placeholder {
+  color: #0284c7;
+  opacity: 0.7;
+}
+
+.users-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #bae6fd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: rgba(240, 249, 255, 0.3);
+  color: #0369a1;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.users-select:focus {
+  outline: none;
+  border-color: #0ea5e9;
+}
+
+.users-select option {
+  background-color: white;
+  color: #0369a1;
+}
+
+.users-submit-button {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  justify-self: center;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.users-submit-button:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+}
+
+.users-list-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.users-list-header {
+  border-top: 4px solid #7dd3fc;
+  margin-bottom: 24px;
+}
+
+.users-list-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users-counter {
+  background-color: #dbeafe;
+  color: #0369a1;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #bae6fd;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+  transition: all 0.2s;
+}
+
+.user-item:hover {
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.15);
+  border-color: #7dd3fc;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #075985;
+  font-size: 16px;
+}
+
+.user-details {
+  color: #0284c7;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-role {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.user-role.admin {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.user-role.resident {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.user-role.visitor {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.user-delete-button {
+  color: #dc2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.user-delete-button:hover {
+  background-color: rgba(220, 38, 38, 0.1);
+  transform: scale(1.05);
+}
+
+.users-empty-state {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.users-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.users-empty-text {
+  color: #0284c7;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.users-empty-subtext {
+  color: #0ea5e9;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .users-container {
+    padding: 16px;
+  }
+  
+  .users-card,
+  .users-list-card {
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .user-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .user-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .user-delete-button {
+    align-self: flex-end;
+  }
+  
+  .users-list-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .users-title {
+    font-size: 1.25rem;
+  }
+  
+  .users-list-title {
+    font-size: 1.125rem;
+  }
+  
+  .user-name {
+    font-size: 15px;
+  }
+  
+  .user-details {
+    font-size: 13px;
+  }
+}

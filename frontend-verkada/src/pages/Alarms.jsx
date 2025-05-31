@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
+import './Alarms.css'; // Importa el archivo CSS
 
 export default function Alarms() {
   const [alarms, setAlarms] = useState([]);
@@ -41,40 +42,77 @@ export default function Alarms() {
   }, []);
 
   return (
-    <div>
-      <h2>Registrar Alarma</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nombre de la alarma"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Descripción"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <button type="submit">Guardar Alarma</button>
-      </form>
+    <div className="alarms-container">
+      <div className="alarms-card">
+        <div className="alarms-header">
+          <h2 className="alarms-title">Registrar Alarma</h2>
+          <div className="alarms-divider"></div>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="alarms-form">
+          <input
+            type="text"
+            placeholder="Nombre de la alarma"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="alarms-input"
+          />
+          <textarea
+            placeholder="Descripción de la alarma"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            className="alarms-textarea"
+          />
+          <button type="submit" className="alarms-submit-button">
+            Guardar Alarma
+          </button>
+        </form>
+      </div>
 
-      <h3>Alarmas Registradas</h3>
-      <ul>
-        {alarms.map((alarm) => (
-          <li key={alarm.id}>
-            {alarm.name}: {alarm.description}
-            <button
-              onClick={() => handleDelete(alarm.id)}
-              style={{ marginLeft: '10px', color: 'red' }}
-            >
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="alarms-list-card">
+        <div className="alarms-list-header">
+          <h3 className="alarms-list-title">
+            Alarmas Registradas
+            <span className="alarms-counter">{alarms.length}</span>
+          </h3>
+          <div className="alarms-divider"></div>
+        </div>
+        
+        {alarms.length === 0 ? (
+          <div className="alarms-empty-state">
+            <div className="alarms-empty-icon">🚨</div>
+            <p className="alarms-empty-text">No hay alarmas registradas</p>
+            <p className="alarms-empty-subtext">Agrega la primera alarma al sistema</p>
+          </div>
+        ) : (
+          <ul className="alarms-list">
+            {alarms.map((alarm) => (
+              <li key={alarm.id} className="alarm-item">
+                <div className="alarm-header">
+                  <div className="alarm-info">
+                    <div className="alarm-name">
+                      <span className="alarm-icon">🚨</span>
+                      {alarm.name}
+                      <span className="alarm-status">Activa</span>
+                    </div>
+                    <div className="alarm-description">
+                      {alarm.description}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDelete(alarm.id)}
+                    className="alarm-delete-button"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
