@@ -3,6 +3,9 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Home from '../Home';
 
+
+
+//componente test de home con render
 describe('Home Component', () => {
   it('renders home page correctly', () => {
     render(<Home />);
